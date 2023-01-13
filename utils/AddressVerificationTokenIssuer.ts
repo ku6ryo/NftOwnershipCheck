@@ -36,10 +36,9 @@ export class AddressVerificationTokenIssuer {
    * @param expiresAt Optional. Do not use except for testing.
    * @returns Token
    */
-  issueToken(address: string, expiresAt?: Date) {
+  issueToken(address: string) {
     return jwt.sign({
-      // Default expiration time is after 1 sec from issue of token.
-      exp: Math.floor((expiresAt ? expiresAt.getTime() : Date.now() + 1) / 1000) + this.#expiresIn,
+      exp: Math.floor(Date.now() / 1000) + this.#expiresIn,
       sub: this.#subject,
       iss: this.#issuer,
       data: address,
